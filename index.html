@@ -1,134 +1,381 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estacionalo — Estaciona fácil. Vive mejor.</title>
   <style>
-    body {
-      max-width: 500px;
-      margin: 4rem auto;
-      font-family: sans-serif;
-      padding: 0 1rem;
-      background: #eda200;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .input-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 1.5rem;
-    }
-
-    input {
-      flex: 1;
-      padding: 0.7rem 1rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
-    button {
-      padding: 0.7rem 1.2rem;
-      font-size: 1rem;
-      background: #2a9d8f;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    ul {
-      list-style: none;
+    * {
+      margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    li {
+    body {
+      font-family: sans-serif;
+      background: #f8f9ff;
+      color: #1a2340;
+    }
+
+    .hero {
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      padding: 0.8rem 1rem;
-      margin-bottom: 8px;
-      background: white;
-      border-radius: 8px;
-      border: 1px solid #eee;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    li.hecho {
-      text-decoration: line-through;
-      opacity: 0.4;
-    }
-
-    .nota {
-      font-size: 0.85rem;
-      color: #aaa;
       text-align: center;
-      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(160deg, #f8f9ff 50%, #e8eeff);
+    }
+
+    .logo-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 22px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15);
+    }
+
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #2563eb;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .tagline-small {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 700px;
+      margin-bottom: 1.2rem;
+      color: #1a2340;
+    }
+
+    .hero h1 span {
+      color: #2563eb;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 500px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .badges {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .badge {
+      background: #fff;
+      border: 1px solid #dde3f5;
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #1a2340;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1a2340;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-sub {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 2rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 780px;
+      width: 100%;
+      margin: 0 auto 5rem;
+      padding: 0 1rem;
+    }
+
+    @media(max-width: 600px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: #fff;
+      border: 1.5px solid #e8eeff;
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: left;
+      box-shadow: 0 4px 24px rgba(37, 99, 235, 0.06);
+    }
+
+    .card.green {
+      border-color: #bbf7d0;
+    }
+
+    .card.blue {
+      border-color: #bfdbfe;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .card.green h2 {
+      color: #15803d;
+    }
+
+    .card.blue h2 {
+      color: #1d4ed8;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .card input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      background: #f8f9ff;
+      border: 1.5px solid #dde3f5;
+      border-radius: 10px;
+      color: #1a2340;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      outline: none;
+    }
+
+    .card.green input:focus {
+      border-color: #22c55e;
+    }
+
+    .card.blue input:focus {
+      border-color: #2563eb;
+    }
+
+    .privacy {
+      font-size: 0.72rem;
+      color: #aaa;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .card button:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .card button:active {
+      transform: scale(0.98);
+    }
+
+    .card.green button {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+    }
+
+    .card.blue button {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #1a2340;
+    }
+
+    .stats {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #2563eb;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #bbb;
+      border-top: 1px solid #eef0f8;
+      background: #fff;
+    }
+
+    footer span {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>📝 Mis tareas</h1>
+  <section class="hero">
+    <img class="logo-img" src="logo.png" alt="Estacionalo logo" onerror="this.style.display='none'">
+    <div class="logo-text">Estacionalo</div>
+    <div class="tagline-small">Estaciona fácil. Vive mejor.</div>
+    <h1>Deja de dar vueltas.<br>Estaciona <span>en segundos.</span></h1>
+    <p>La app que conecta conductores con estacionamientos disponibles en Santiago — en tiempo real.</p>
+    <div class="badges">
+      <span class="badge">🗺 Santiago centro</span>
+      <span class="badge">⚡ Tiempo real</span>
+      <span class="badge">🔒 Pago seguro</span>
+      <span class="badge">📱 Próximamente</span>
+    </div>
+  </section>
 
-  <div class="input-row">
-    <input id="nueva-tarea" type="text" placeholder="Escribe una tarea...">
-    <button onclick="agregarTarea()">Agregar</button>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" id="conductores">0</div>
+      <div class="stat-label">conductores esperando</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="duenos">0</div>
+      <div class="stat-label">dueños registrados</div>
+    </div>
   </div>
 
-  <ul id="lista"></ul>
-  <p class="nota">Las tareas se guardan aunque cierres el navegador 💾</p>
+  <div style="max-width:780px;margin:0 auto;padding:0 1rem 2rem;">
+    <p class="section-title">¿Quién eres tú?</p>
+    <p class="section-sub">Únete a la lista de espera y sé el primero en usarla.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card green">
+      <div class="card-icon">🚗</div>
+      <h2>Soy conductor</h2>
+      <p>Encuentra estacionamiento disponible cerca de ti, réservalo y llega directo. Sin vueltas, sin stress.</p>
+      <div id="form-conductor">
+        <input type="email" id="email-conductor" placeholder="tu@correo.com">
+        <p class="privacy">Tu correo solo se usará para avisarte del lanzamiento. No compartimos tu información con
+          terceros.</p>
+        <button onclick="registrar('conductor')">Quiero ser el primero en usarla</button>
+      </div>
+      <div class="success" id="ok-conductor">✅ ¡Listo! Te avisamos cuando lancemos.</div>
+    </div>
+
+    <div class="card blue">
+      <div class="card-icon">🅿️</div>
+      <h2>Tengo estacionamiento</h2>
+      <p>Publica tu espacio, define tu precio y empieza a ganar dinero extra con algo que ya tienes.</p>
+      <div id="form-dueno">
+        <input type="email" id="email-dueno" placeholder="tu@correo.com">
+        <p class="privacy">Tu correo solo se usará para avisarte del lanzamiento. No compartimos tu información con
+          terceros.</p>
+        <button onclick="registrar('dueno')">Quiero ganar dinero extra</button>
+      </div>
+      <div class="success" id="ok-dueno">✅ ¡Perfecto! Nos ponemos en contacto contigo pronto.</div>
+    </div>
+  </div>
+
+  <footer>
+    Hecho con ❤️ en Santiago por <span>Vicente Pearce</span> · Estacionalo 2026
+  </footer>
 
   <script>
-    let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
-
-    function guardar() {
-      localStorage.setItem("tareas", JSON.stringify(tareas));
-    }
-
-    function renderizar() {
-      const lista = document.getElementById("lista");
-      lista.innerHTML = "";
-
-      tareas.forEach(function (tarea, indice) {
-        const li = document.createElement("li");
-        li.innerText = tarea.texto;
-        if (tarea.hecho) li.classList.add("hecho");
-
-        li.addEventListener("click", function () {
-          tareas[indice].hecho = !tareas[indice].hecho;
-          guardar();
-          renderizar();
+    async function registrar(tipo) {
+      const emailId = tipo === 'conductor' ? 'email-conductor' : 'email-dueno';
+      const endpoint = tipo === 'conductor'
+        ? 'https://formspree.io/f/xrejelwd'
+        : 'https://formspree.io/f/mjglgoqn';
+      const email = document.getElementById(emailId).value;
+      if (!email || !email.includes('@')) { alert('Ingresa un correo válido'); return; }
+      const btn = document.querySelector('#form-' + tipo + ' button');
+      btn.innerText = 'Enviando...';
+      btn.classList.add('loading');
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email, tipo })
         });
-
-        lista.appendChild(li);
-      });
+        if (res.ok) {
+          document.getElementById('form-' + tipo).style.display = 'none';
+          document.getElementById('ok-' + tipo).style.display = 'block';
+          const id = tipo === 'conductor' ? 'conductores' : 'duenos';
+          document.getElementById(id).innerText = parseInt(document.getElementById(id).innerText) + 1;
+        } else {
+          alert('Hubo un error. Intenta de nuevo.');
+          btn.innerText = tipo === 'conductor' ? 'Quiero ser el primero en usarla' : 'Quiero ganar dinero extra';
+          btn.classList.remove('loading');
+        }
+      } catch (e) {
+        alert('Error de conexión. Intenta de nuevo.');
+        btn.innerText = tipo === 'conductor' ? 'Quiero ser el primero en usarla' : 'Quiero ganar dinero extra';
+        btn.classList.remove('loading');
+      }
     }
-
-    function agregarTarea() {
-      const input = document.getElementById("nueva-tarea");
-      const texto = input.value.trim();
-      if (texto === "") return;
-
-      tareas.push({ texto: texto, hecho: false });
-      guardar();
-      renderizar();
-      input.value = "";
-    }
-
-    document.getElementById("nueva-tarea").addEventListener("keypress", function (e) {
-      if (e.key === "Enter") agregarTarea();
-    });
-
-    renderizar();
   </script>
-
 </body>
 
 </html>
