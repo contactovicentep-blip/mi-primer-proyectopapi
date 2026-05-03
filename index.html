@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      max-width: 500px;
+      margin: 4rem auto;
+      font-family: sans-serif;
+      padding: 0 1rem;
+      background: #eda200;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      background: #2a9d8f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      margin-bottom: 8px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    li.hecho {
+      text-decoration: line-through;
+      opacity: 0.4;
+    }
+
+    .nota {
+      font-size: 0.85rem;
+      color: #aaa;
+      text-align: center;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>📝 Mis tareas</h1>
+
+  <div class="input-row">
+    <input id="nueva-tarea" type="text" placeholder="Escribe una tarea...">
+    <button onclick="agregarTarea()">Agregar</button>
+  </div>
+
+  <ul id="lista"></ul>
+  <p class="nota">Las tareas se guardan aunque cierres el navegador 💾</p>
+
+  <script>
+    let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+
+    function guardar() {
+      localStorage.setItem("tareas", JSON.stringify(tareas));
+    }
+
+    function renderizar() {
+      const lista = document.getElementById("lista");
+      lista.innerHTML = "";
+
+      tareas.forEach(function (tarea, indice) {
+        const li = document.createElement("li");
+        li.innerText = tarea.texto;
+        if (tarea.hecho) li.classList.add("hecho");
+
+        li.addEventListener("click", function () {
+          tareas[indice].hecho = !tareas[indice].hecho;
+          guardar();
+          renderizar();
+        });
+
+        lista.appendChild(li);
+      });
+    }
+
+    function agregarTarea() {
+      const input = document.getElementById("nueva-tarea");
+      const texto = input.value.trim();
+      if (texto === "") return;
+
+      tareas.push({ texto: texto, hecho: false });
+      guardar();
+      renderizar();
+      input.value = "";
+    }
+
+    document.getElementById("nueva-tarea").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") agregarTarea();
+    });
+
+    renderizar();
+  </script>
+
+</body>
+
+</html>
